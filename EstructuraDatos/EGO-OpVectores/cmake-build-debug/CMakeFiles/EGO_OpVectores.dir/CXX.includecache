@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/EGO-OpVectores/Vector.cpp
+Vector.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/EGO-OpVectores/Vector.h
+iostream
+-
+sstream
+-
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/EGO-OpVectores/Vector.h
+string
+-
+iostream
+-
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/EGO-OpVectores/main.cpp
+iostream
+-
+string
+-
+Vector.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/EGO-OpVectores/Vector.h
+

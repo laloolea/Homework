@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/EGO_OpVectores.dir/main.cpp.o CMakeFiles/EGO_OpVectores.dir/Vector.cpp.o  -o EGO_OpVectores 

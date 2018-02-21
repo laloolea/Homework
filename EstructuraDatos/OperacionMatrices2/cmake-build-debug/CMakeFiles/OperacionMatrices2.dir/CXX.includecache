@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Excepciones.cpp
+Excepciones.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Excepciones.h
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Excepciones.h
+string
+-
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Matriz.cpp
+Matriz.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Matriz.h
+iostream
+-
+limits
+-
+iomanip
+-
+sstream
+-
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Matriz.h
+string
+-
+Excepciones.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Excepciones.h
+
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/main.cpp
+iostream
+-
+cstdlib
+-
+Matriz.h
+/Users/eduardogonzalez/Desktop/Estructura de datos/OperacionMatrices2/Matriz.h
+iomanip
+-
+
