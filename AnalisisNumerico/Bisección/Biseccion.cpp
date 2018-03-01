@@ -1,88 +1,111 @@
 #include <iostream>
-#include <cstdlib>
+#include <iomanip>
+
 #include <cmath>
 using namespace std;
 
 template <typename T>
-void CapturaNum (const char *message, T &num);
+void CapturaDato (const char *message, T &num);
+float Funcion (float x);
 
 int main(){
-      long double an,bn,xn,fa,fb,fx,k ;
-      double funcion,epsilon;
-      bool faNegativo,fbNegativo;
-      //char metodoParo,continuar;
+    // variables para los intervalos y funciones
+      float an,bn,xn,fa,fb,fx,k ,aux;
+      double epsilon;
+    //Booleanos para ver como acomodar datos
+      bool faPositivo,fbPositivo;
       int metodoParo,continuar;
 
+      cout <<fixed<<setprecision(15);// Para precisar los decimales
+
+
       cout << "Programa de bisección"<<endl;
-      // Funcion 5sen(x) + 0.02x
+
       do{
-          //cout<<"Que metodo de paro desea utilizar? (Núm iteraciones=1 , Error truncamiento =2): ";
-          //cin >> metodoParo;
-          CapturaNum("Que metodo de paro desea utilizar? (Núm iteraciones=1 , Error truncamiento =2): ",metodoParo);
+          CapturaDato("Qué metodo de paro desea utilizar? (Núm iteraciones=1 , Error truncamiento =2): ",metodoParo);
       }while(metodoParo != 1 &&  metodoParo != 2);
 
-      //do{
-          cout<<"Ingresar intervalo"<<endl;
-          CapturaNum("A0 = ",an);
+      do {
+          cout << "Ingresar intervalo" << endl;
 
-          CapturaNum("B0 = ",bn);
+          CapturaDato ("A0 = " , an);// Capturar intervalos
+          CapturaDato ("B0 = " , bn);
 
-          fa = an + sin(an)-(1/an);//5*sin(an)+ 0.02*(an)/*sin(an);*/;
+          if(an > bn){
+              aux =bn;
+              bn=an;
+              an = aux;
+          }
+          fa = Funcion (an); // Se calculan las funciones en los intervalos dados con una función
+          fb = Funcion (bn);
 
-          fb = bn + sin(bn)-(1/bn);//5*sin(bn)+ 0.02*(bn);/*sin(an);*/
 
+          if (fa * fb > 0) { //Verificamos cambio de signo.
+              cout << "En el intervalo [" << an << " , " << bn << "] no hay raíz" << endl;
+              do {
+                  CapturaDato ("Desea continuar ? (Si=1, No=0 ): " , continuar);
+                  if(continuar == 0) {
+                      cout<< "\nAdios. \n";
+                      return 0;
+                  }
+              } while (continuar != 0 && continuar != 1);
+          }
+      }while(fa * fb > 0 );// Y verificamos que el usuario quiera seguir en el programa
 
-            if(fa * fb > 0){
-              cout<<"En el intervalo ["<< an<<" , "<<bn<<"] no hay raiz"<<endl;
-              return 0;
+      if(metodoParo ==1){
+        CapturaDato("Ingrese el núm de iteraciones por favor: ",k);
+      }else {
+          CapturaDato ("Ingrese el epsilon que desea: " , epsilon);
+          k = (log ((bn - an) / epsilon)) / (log (2)); // Se calcula el número de iteraciones
+      }
+
+      if(fa>0){
+        faPositivo=true; //Un booleano para ver como acomodaremos los valores de an y xn dependiendo de su signo
+        fbPositivo=false;
+      }else {
+          faPositivo = false;
+          fbPositivo = true;
+      }
+        if(fa ==0|| fb ==0){ // El caso cuando te dan la raíz en el intervalo dado ni entra al algoritmo
+            cout << "La raiz es exactamente = 0 "<<endl;
+        }else {              // empieza el algoritmo
+            cout << "Número de iteraciones: " << (int) k << endl << endl;
+            cout << "Iteración" << setw (24) << "an" << setw (30) << "bn" << setw (32) << "xn" << setw (35)
+                 << "f(xn)" << endl;
+            for ( int i = 0 ; i <= k ; ++i ) {
+                xn = (an + bn) / 2; // Se calcula la xn
+                fx = Funcion (xn); // La función en xn
+
+                cout << setw (12) << i << setw (12) << "\t" << an << setw (12) << "\t" << bn << setw (12) << "\t"
+                     << xn
+                     << setw (12) << "\t" << fx << setw (12) << endl;
+
+                if (fx == 0) {//Cuando la raíz es exacta sale del ciclo
+                    break;
+                } else if (fx < 0 && !faPositivo) { // Para cuando fx es negativa y los negativos van en an
+                    an = xn;
+                } else if (fx < 0 && !fbPositivo) { // para cuando fx es negativa y los negativos van en bn
+                    bn = xn;
+                } else if (fx > 0 && faPositivo) { // para cuando fx es positiva y los positivos van en an
+                    an = xn;
+                } else if (fx > 0 && fbPositivo) { // para cuando fx es positiva y los positivos van en bn
+                    bn = xn;
+                }
+                cout << setw (0);
             }
-            //do{
-            //CapturaNum("Desea continuar? (No=0,Si=1): ",metodoParo);
 
-          //}while(continuar != 1 && continuar !=2);
+            if (fx == 0) { // Si la raiz da exacta
+                cout << "\n\n\nLa raiz es exactamente = " << xn << endl;
+            } else {        // Si la raíz da aproximada
+                cout << "\n\n\nLa raiz es aproximadamente = " << xn << endl;
 
-          if(metodoParo ==1){
-            CapturaNum("Ingrese el núm de iteraciones por favor: ",k);
-          }else{
-            CapturaNum("Ingrese el epsilon que desea: ",epsilon);
-            k= (log((bn-an)/epsilon))/(log(2));
-          }
-
-          if(fa>0){
-            faNegativo=false;
-            fbNegativo=true;
-          }
-
-          for(int i = 0 ; i <= k ; ++i){
-              xn=(an+bn)/2;
-              fx= xn + sin(xn)-(1/xn);//5*sin(xn)+ 0.02*(xn)/*sin(xn);*/;
-              if(fx==0){
-                //cout<<"La raiz es exactamente = "<< xn;
-                break;
-              }else if (fx < 0 && faNegativo){
-                an = xn;
-              }else if(fx < 0 && fbNegativo){
-                bn=xn;
-              }else if(fx > 0 && !faNegativo){
-                an=xn;
-              }else if(fx > 0 && !fbNegativo){
-                bn=xn;
-              }
-          }
-
-          if(fx==0){
-            cout<<"La raiz es exactamente = "<< xn<<endl;
-          }
-          else{
-          cout<< "La raiz es aproximadamente = "<<(double)xn << endl;
+            }
         }
-        //}while(continuar == 's');
-      //system("pause");
       return 0;
 }
-
+//Función que captura cualquier dato de forma segura
 template <typename T>
-void CapturaNum (const char *mensage , T &num)
+void CapturaDato (const char *mensage , T &num)
 {
     while(true){
         std::cout << mensage;
@@ -98,4 +121,9 @@ void CapturaNum (const char *mensage , T &num)
         }
         return;
     }
+}
+//Función que calcula la función que necesitas para reutilizar codigo
+float Funcion (float x)
+{
+    return (2*cos(3*x)-0.02*x+10);
 }
